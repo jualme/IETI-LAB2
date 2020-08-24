@@ -5,6 +5,7 @@ import {TodoList} from "./TodoList";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from "moment";
+import {Login} from './components/Login'
 
 class App extends Component {
 
@@ -28,6 +29,7 @@ class App extends Component {
                 </header>
 
                 <br/>
+                <Login/>
                 <br/>
                 <form onSubmit={this.handleSubmit} className="todo-form">
                     <h3>New TODO</h3>
