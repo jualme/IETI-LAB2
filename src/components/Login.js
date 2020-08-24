@@ -13,6 +13,16 @@ import './Login.css'
 
 export class Login extends React.Component{
 
+    constructor(props){
+        super(props);
+        this.state = {email : '', password : ''}
+        this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
+        this.handleOnChangeEmail = this.handleOnChangeEmail.bind(this);
+        this.handleOnChangePassword = this.handleOnChangePassword.bind(this);
+        localStorage.setItem("email","juanM@mail.com");
+        localStorage.setItem("password","ieti2020")
+    }
+
     render(){
         return (
             <React.Fragment>
@@ -23,10 +33,10 @@ export class Login extends React.Component{
                             <LockIcon />
                         </Avatar>
                         <Typography variant="h2">Sign in</Typography>
-                        <form className="form">
+                        <form className="form" onSubmit={this.handleSubmit}>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="email">Email Address</InputLabel>
-                                <Input id="email" name="email" autoComplete="email" autoFocus />
+                                <Input id="email" name="email" autoComplete="email" autoFocus onChange = {this.handleOnChangeEmail}  />
                             </FormControl>
                             <FormControl margin="normal" required fullWidth>
                                 <InputLabel htmlFor="password">Password</InputLabel>
@@ -35,6 +45,7 @@ export class Login extends React.Component{
                                     type="password"
                                     id="password"
                                     autoComplete="current-password"
+                                    onChange={this.handleOnChangePassword}
                                 />
                             </FormControl>
                             <Button
@@ -53,4 +64,18 @@ export class Login extends React.Component{
         );
     }
 
+    handleOnChangeEmail(event){
+        this.setState({email : event.target.value});
+    }
+
+    handleOnChangePassword(event){
+        this.setState({password : event.target.value});
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        if(localStorage.getItem("email") === this.state.email && localStorage.getItem("password") === this.state.password){
+            this.props.changeIsLoggedIn();
+        }
+    }
 }
