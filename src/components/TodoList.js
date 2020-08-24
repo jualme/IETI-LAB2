@@ -1,5 +1,7 @@
 import React from 'react';
 import {Todo} from './Todo'
+import Grid from '@material-ui/core/Grid';
+import './Todo.css';
 
 export class TodoList extends React.Component {
 
@@ -11,18 +13,12 @@ export class TodoList extends React.Component {
         });
 
         return (
-            <table>
-                <thead>
-                <tr>
-                    <th>Task</th>
-                    <th>Priority</th>
-                    <th>Due Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                {todoList}
-                </tbody>
-            </table>
+            <div>
+                <Grid container spacing={4} className="grid-container">
+                    {todoList}
+                </Grid >
+
+            </div>
         );
 
 

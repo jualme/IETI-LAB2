@@ -25,6 +25,8 @@ Using last version of react router 5.2.0
    "react-router-dom": "^5.2.0"   
 ```
 
+Changed all Todo to use Material UI elements
+
 ## Part 3: Local Storage
 
 Done 

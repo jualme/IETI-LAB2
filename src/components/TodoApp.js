@@ -1,7 +1,13 @@
 import React from 'react';
 import {TodoList} from "./TodoList";
 import moment from "moment";
-import DatePicker from "react-datepicker";
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from "@material-ui/core/FormControl";
+import TextField from '@material-ui/core/TextField';
+
 
 
 export class TodoApp extends React.Component{
@@ -13,6 +19,7 @@ export class TodoApp extends React.Component{
         this.handlePriorityChange = this.handlePriorityChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     handleTextChange(e) {
@@ -29,12 +36,11 @@ export class TodoApp extends React.Component{
 
     handleDateChange(date) {
         this.setState({
-            dueDate: date
+            dueDate: moment(date.target.value)
         });
     }
 
     handleSubmit(e) {
-
         e.preventDefault();
 
         if (!this.state.text.length || !this.state.priority.length || !this.state.dueDate)
@@ -59,44 +65,52 @@ export class TodoApp extends React.Component{
         return (
             <div className="Todo">
 
-                <form onSubmit={this.handleSubmit} className="todo-form">
+                <div className="todo-form">
                     <h3>New TODO</h3>
-                    <label htmlFor="text" className="right-margin">
-                        Text:
-                    </label>
 
-                    <input
-                        id="text"
-                        onChange={this.handleTextChange}
-                        value={this.state.text}>
-                    </input>
+                    <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="text">Text:</InputLabel>
+                        <Input id="text" name="text"
+                               autoComplete="text" autoFocus
+                               value={this.state.text}
+                               onChange = {this.handleTextChange} />
+                    </FormControl>
 
                     <br/>
                     <br/>
-                    <label htmlFor="priority" className="right-margin">
-                        Priority:
-                    </label>
+                    <FormControl margin="normal" required fullWidth>
+                        <InputLabel htmlFor="priority">Priority:</InputLabel>
+                        <Input id="priority" name="priority"
+                               autoComplete="priority" autoFocus
+                               value={this.state.priority}
+                               onChange = {this.handlePriorityChange} />
+                    </FormControl>
 
-                    <input
-                        id="priority"
-                        type="number"
-                        onChange={this.handlePriorityChange}
-                        value={this.state.priority}>
-                    </input>
                     <br/>
                     <br/>
+                    <TextField
+                        id="date"
+                        label="Due date"
+                        type="date"
+                        defaultValue="2020-01-01"
+                        InputLabelProps={{shrink: true,required: true}}
+                        onChange={this.handleDateChange}
+                        fullWidth
+                    />
 
-                    <DatePicker
-                        id="due-date"
-                        selected={this.state.dueDate}
-                        placeholderText="Due date"
-                        onChange={this.handleDateChange}>
-                    </DatePicker>
                     <br/>
-                    <button>
-                        Add #{this.state.items.length + 1}
-                    </button>
-                </form>
+                    <Divider variant="fullWidth"/>
+                    <br/>
+                    <br/>
+                    <Button type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className="submit"
+                            onClick={this.handleSubmit}>
+                        Add
+                    </Button>
+                </div>
                 <br/>
                 <br/>
                 <TodoList todoList={this.state.items}/>
